@@ -81,7 +81,6 @@ composables/
   useCalculateFood.ts           # Feeding requirement calculation
 docs/
   feeding-schedule-plan.md      # Notes for a possible next feature
-  project-retrospective.md      # Refactor notes and future improvements
 server/api/
   animals.get.ts                # Mock animal API endpoint
 utils/
@@ -122,4 +121,3 @@ The dashboard total multiplies each animal's daily amount by the number of days 
 
 - The project currently uses a curated local demo dataset for predictable testing and repeatable screenshots.
 - Planning notes for a future feeding schedule feature live in `docs/feeding-schedule-plan.md`.
-- Internal refactor notes live in `docs/project-retrospective.md`.
