@@ -11,15 +11,16 @@ The app currently focuses on:
 - browsing a curated animal directory,
 - opening a detail modal for each animal,
 - calculating age from each animal's birthdate,
-- estimating the total food required for the next calendar month.
+- estimating the total food required for the next calendar month,
+- planning feeding tasks by animal, date, and fruit.
 
 ## Highlights
 
 - Built with Nuxt 3, Vue 3, and TypeScript in a single full-stack codebase.
 - Uses shared types across UI and server code.
 - Includes utility-driven business logic for age and food calculations.
+- Includes a lightweight feeding-schedule MVP grouped by day.
 - Keeps the UI intentionally small and readable, with room to grow into a richer planning tool.
-- Includes project notes for future feeding-schedule work.
 
 ## Stack
 
@@ -68,6 +69,7 @@ pnpm run typecheck
 - Corrected the food-calculation usage in the dashboard total.
 - Cleaned up the README and project notes so the repo reads like a standalone project instead of a take-home submission.
 - Repaired the ESLint configuration so targeted linting runs cleanly again.
+- Added an in-memory feeding schedule MVP with grouped daily tasks.
 
 ## Project Structure
 
@@ -75,12 +77,14 @@ pnpm run typecheck
 app.vue                          # Main dashboard page
 components/
   AnimalDetailModal.vue         # Detail overlay for an animal
+  FeedingSchedule.vue           # Feeding planner and grouped task list
   TheAnimalTable.vue            # Sortable animal overview table
 composables/
   useAnimals.ts                 # Client-side animal loading
   useCalculateFood.ts           # Feeding requirement calculation
+  useFeedingSchedule.ts         # In-memory feeding task state and grouping
 docs/
-  feeding-schedule-plan.md      # Notes for a possible next feature
+  feeding-schedule-plan.md      # Planning notes and MVP status
 server/api/
   animals.get.ts                # Mock animal API endpoint
 utils/
@@ -95,8 +99,9 @@ types.ts                        # Shared application types
 - `server/api/animals.get.ts` provides a mock API endpoint for animal data.
 - `useAnimals.ts` loads animal data on the client and exposes it to the dashboard.
 - `useCalculateFood.ts` contains the feeding rules used by the forecast.
+- `useFeedingSchedule.ts` stores feeding tasks in memory and groups them by day.
 - `useCalculateAgeInYears.ts` keeps age logic isolated and testable.
-- The main dashboard composes the animal table and detail modal around those shared helpers.
+- The main dashboard composes the forecast, feeding planner, animal table, and detail modal around those shared helpers.
 
 ## Feeding Logic
 
@@ -113,11 +118,12 @@ The dashboard total multiplies each animal's daily amount by the number of days 
 ## Roadmap
 
 - Add table filters for species, age, and feeding needs.
-- Persist animals and feeding tasks with a real database.
+- Persist feeding tasks with local storage or a simple API.
+- Add edit support and duplicate-task validation for feeding tasks.
 - Add accessibility improvements for keyboard navigation and modal interactions.
 - Expand test coverage around the food-calculation rules and forecast totals.
 
 ## Notes
 
 - The project currently uses a curated local demo dataset for predictable testing and repeatable screenshots.
-- Planning notes for a future feeding schedule feature live in `docs/feeding-schedule-plan.md`.
+- Feeding schedule planning notes and MVP follow-up ideas live in `docs/feeding-schedule-plan.md`.

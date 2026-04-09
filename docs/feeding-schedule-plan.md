@@ -3,6 +3,23 @@
 ## Feature Overview
 A feeding schedule planner that allows caretakers to plan feeding work by animal, date, and fruit, with tasks grouped by day.
 
+## Current Status
+
+An MVP version of this feature has been implemented in the dashboard.
+
+Implemented:
+- inline form for choosing animal, date, and fruit,
+- grouped task list by day,
+- per-task food amount using the existing food-calculation rules,
+- remove action for deleting planned tasks,
+- in-memory state managed in the client.
+
+Not implemented yet:
+- API persistence,
+- task editing,
+- duplicate-task prevention,
+- filtering or time-range controls.
+
 ## User Requirements
 - I want to plan when to feed which animal
 - Per animal I want to be able to plan a day + a fruit that I feed them
@@ -19,46 +36,50 @@ A feeding schedule planner that allows caretakers to plan feeding work by animal
 ```typescript
 type FeedingTask = {
   id: string
-  animalId: string
-  date: Date
+  animalName: string
+  date: string
   fruit: Fruit
 }
 ```
 
 ### 2. API Endpoints Needed
+These are still future work. The current MVP keeps tasks in memory.
+
 - `GET /api/feeding-tasks` - Get all feeding tasks
 - `POST /api/feeding-tasks` - Create a new feeding task
 - `DELETE /api/feeding-tasks/:id` - Delete a feeding task
 
 ### 3. Components Needed
 - `FeedingSchedule.vue` - Main component displaying grouped tasks by day
-- `FeedingTaskForm.vue` - Form to add new feeding tasks
-- `FeedingTaskCard.vue` - Individual task display
+
+The current MVP keeps the form and task rendering inside `FeedingSchedule.vue` to stay lightweight.
 
 ### 4. Implementation Order
-1. Create API endpoints for feeding tasks
-2. Create composable `useFeedingSchedule` to manage tasks
-3. Create `FeedingTaskCard` component
-4. Create `FeedingTaskForm` component
-5. Create `FeedingSchedule` main component
-6. Add feeding schedule section to main app
+1. Create composable `useFeedingSchedule` to manage tasks
+2. Create `FeedingSchedule` UI for adding and listing tasks
+3. Add grouped food calculations to each task row
+4. Integrate the feeding schedule section into the main app
+5. Add focused tests for task grouping and removal
+6. Revisit persistence and editing in a later iteration
 
 ### 5. UI/UX Design
 - **Main View**: List of days, each containing tasks for that day
-- **Add Task**: Modal or inline form with:
+- **Add Task**: Inline form with:
   - Animal selector (dropdown)
   - Date picker
   - Fruit selector
-- **Task Card**: Shows animal name, fruit, food amount
+- **Task Row**: Shows animal name, fruit, food amount, and remove action
 
 ### 6. Questions/Clarifications Needed
 - How far in advance should we show feeding tasks? (next 7 days, 30 days, all?)
 - Should tasks be editable?
 - Can multiple tasks be assigned to the same animal on the same day?
-- How should we handle past dates?
-- Should there be any validation (e.g., don't allow duplicate animal feeding on same day)?
+- How should we handle duplicate tasks for the same animal and date?
+- Should we persist tasks between sessions?
 
-## Estimated Complexity
-- **Backend**: Medium (CRUD operations, date handling)
-- **Frontend**: Medium (forms, date grouping logic)
-- **Testing**: Medium (food calculation, date grouping)
+## Next Iteration
+
+- Add persistence through local storage or a simple server API.
+- Prevent duplicate tasks for the same animal and date.
+- Add edit support.
+- Expand tests for date grouping and UI validation.

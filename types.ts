@@ -11,3 +11,10 @@ export type Animal = {
   height: number
   weight: number
 }
+
+export type FeedingTask = {
+  id: string
+  animalName: string
+  date: string
+  fruit: Fruit
+}

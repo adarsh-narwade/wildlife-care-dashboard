@@ -62,14 +62,18 @@ const totalFoodForNextMonth = computed(() => {
       Unable to load animal data right now. Please refresh and try again.
     </div>
 
-    <div class="mt-6 border-t border-gray-300 py-4">
-      <h2 class="text-2xl font-medium">
-        Animal Directory
-      </h2>
-    </div>
-    <p v-if="status === 'pending'" class="text-gray-500">
-      Loading animal data...
-    </p>
-    <the-animal-table v-else :animals="animals" />
+    <template v-else>
+      <FeedingSchedule v-if="status !== 'pending'" :animals="animals" />
+
+      <div class="mt-6 border-t border-gray-300 py-4">
+        <h2 class="text-2xl font-medium">
+          Animal Directory
+        </h2>
+      </div>
+      <p v-if="status === 'pending'" class="text-gray-500">
+        Loading animal data...
+      </p>
+      <the-animal-table v-else :animals="animals" />
+    </template>
   </div>
 </template>
