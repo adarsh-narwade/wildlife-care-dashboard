@@ -22,6 +22,10 @@ The app currently focuses on:
 - Includes a lightweight feeding-schedule MVP grouped by day.
 - Keeps the UI intentionally small and readable, with room to grow into a richer planning tool.
 
+## Screenshot
+
+![Wildlife Care Dashboard overview](docs/screenshots/dashboard-full.png)
+
 ## Stack
 
 - Nuxt 3
